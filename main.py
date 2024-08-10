@@ -1,8 +1,9 @@
-from PyQt6.QtWidgets import QMainWindow, QPushButton, QApplication, QTextEdit
+from PyQt6.QtWidgets import QMainWindow, QPushButton, QApplication, QTextEdit, QLabel
 from PyQt6.QtGui import QIcon, QKeyEvent
 from PyQt6.QtCore import Qt
 import sys
 from backend import Chatbot, api_key
+from config import gpt_model
 import threading
 
 
@@ -11,7 +12,7 @@ class ChatbotWindow(QMainWindow):
         super().__init__()
         self.chatbot = Chatbot(api_key)
 
-        self.setMinimumSize(600, 420)
+        self.setMinimumSize(600, 440)
         self.setWindowTitle("Jendy The Exercise Chatbot")  # Set window title
         self.setWindowIcon(QIcon('img/dumbbell_icon.png'))  # Set window icon
         self.setStyleSheet("background-color: white; ")  # Set background
@@ -26,6 +27,17 @@ class ChatbotWindow(QMainWindow):
             padding: 10px 50px 10px 20px;
             }
         """)
+
+        # GPT model label
+        self.model_label = QLabel(self)
+        self.model_label.setGeometry(450, 320, 200, 20)  # Set position and size
+        self.model_label.setText(f"powered by {gpt_model}")
+        self.model_label.setStyleSheet("""
+                    QLabel {
+                    color: #999999;
+                    font-size: 10px;
+                    }
+                    """)
 
         # Input field
         self.input_field = QTextEdit(self)
